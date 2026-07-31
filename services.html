@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — Castro Odhiambo</title>
+<meta name="description" content="Tutoring, KRA, KUCCPS, HELB, e-Citizen services and graphic design offered by Castro Odhiambo.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%230F172A%22/><text x=%2250%22 y=%2266%22 font-size=%2250%22 font-family=%22Arial%22 font-weight=%22800%22 fill=%22white%22 text-anchor=%22middle%22>C</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand"><span class="brand__mark">CO</span> Castro Odhiambo</a>
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <a href="index.html" data-page="index.html">Home</a>
+      <a href="about.html" data-page="about.html">About</a>
+      <a href="services.html" data-page="services.html">Services</a>
+      <a href="resources.html" data-page="resources.html">Resources</a>
+      <a href="blog.html" data-page="blog.html">Blog</a>
+      <a href="contact.html" data-page="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn--whatsapp btn--sm" data-whatsapp-message="Hello Castro, I found your website and would like to talk." href="#"><span class="btn-label-full">WhatsApp</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Services</span>
+      <h1>Tutoring, government portals, and design — handled properly, once</h1>
+      <p>Six focused services. Filter below, or message me directly on WhatsApp for anything that doesn't fit neatly into a category.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="filter-tabs" data-service-filters>
+        <button class="filter-tab is-active" data-filter="all">All Services</button>
+        <button class="filter-tab" data-filter="tutoring">Academic Tutoring</button>
+        <button class="filter-tab" data-filter="egov">E-Government &amp; Cyber Services</button>
+        <button class="filter-tab" data-filter="design">Design &amp; Media</button>
+      </div>
+
+      <div class="grid grid-3" data-services-grid>
+
+        <article class="card service-card reveal" data-category="tutoring">
+          <div class="card__icon" aria-hidden="true">📐</div>
+          <h3>Mathematics &amp; Computer Studies Tutoring</h3>
+          <p>Secondary school and KCSE preparation tutoring, focused on exam technique, past papers and closing specific topic gaps.</p>
+          <div class="service-card__tags">
+            <span class="service-card__tag">Secondary</span>
+            <span class="service-card__tag">KCSE Prep</span>
+          </div>
+          <div class="service-card__actions">
+            <a class="btn btn--whatsapp btn--sm" data-whatsapp-message="Hello Castro, I'd like to book Mathematics &amp; Computer Studies tutoring." href="#">Book via WhatsApp</a>
+            <button class="btn btn--ghost btn--sm" data-modal-target="#serviceModal" data-service-name="Mathematics &amp; Computer Studies Tutoring">Ask a question</button>
+          </div>
+        </article>
+
+        <article class="card service-card reveal" data-category="egov">
+          <div class="card__icon" aria-hidden="true">🧾</div>
+          <h3>KRA PIN Registration &amp; Tax Services</h3>
+          <p>KRA PIN registration, iTax setup, and basic tax filing support — done correctly, without the queue.</p>
+          <div class="service-card__tags">
+            <span class="service-card__tag">KRA</span>
+            <span class="service-card__tag">iTax</span>
+          </div>
+          <div class="service-card__actions">
+            <a class="btn btn--whatsapp btn--sm" data-whatsapp-message="Hello Castro, I'd like help with KRA PIN registration / tax services." href="#">Book via WhatsApp</a>
+            <button class="btn btn--ghost btn--sm" data-modal-target="#serviceModal" data-service-name="KRA PIN Registration &amp; Tax Services">Ask a question</button>
+          </div>
+        </article>
+
+        <article class="card service-card reveal" data-category="egov">
+          <div class="card__icon" aria-hidden="true">🎓</div>
+          <h3>KUCCPS Placement Applications &amp; Revisions</h3>
+          <p>Course and institution placement applications, revisions, and second-round guidance for KUCCPS applicants.</p>
+          <div class="service-card__tags">
+            <span class="service-card__tag">KUCCPS</span>
+            <span class="service-card__tag">Placement</span>
+          </div>
+          <div class="service-card__actions">
+            <a class="btn btn--whatsapp btn--sm" data-whatsapp-message="Hello Castro, I need help with my KUCCPS placement application/revision." href="#">Book via WhatsApp</a>
+            <button class="btn btn--ghost btn--sm" data-modal-target="#serviceModal" data-service-name="KUCCPS Placement Applications &amp; Revisions">Ask a question</button>
+          </div>
+        </article>
+
+        <article class="card service-card reveal" data-category="egov">
+          <div class="card__icon" aria-hidden="true">💰</div>
+          <h3>HELB Loan &amp; Higher Education Funding Applications</h3>
+          <p>HELB loan applications and higher education funding portal submissions, completed accurately the first time.</p>
+          <div class="service-card__tags">
+            <span class="service-card__tag">HELB</span>
+            <span class="service-card__tag">Funding</span>
+          </div>
+          <div class="service-card__actions">
+            <a class="btn btn--whatsapp btn--sm" data-whatsapp-message="Hello Castro, I need help with my HELB loan / funding application." href="#">Book via WhatsApp</a>
+            <button class="btn btn--ghost btn--sm" data-modal-target="#serviceModal" data-service-name="HELB Loan &amp; Higher Education Funding Applications">Ask a question</button>
+          </div>
+        </article>
+
+        <article class="card service-card reveal" data-category="egov">
+          <div class="card__icon" aria-hidden="true">🖥️</div>
+          <h3>Online Application &amp; e-Citizen Cyber Services</h3>
+          <p>General online applications and e-Citizen services — passports, IDs, business registration, and more.</p>
+          <div class="service-card__tags">
+            <span class="service-card__tag">e-Citizen</span>
+            <span class="service-card__tag">Cyber Services</span>
+          </div>
+          <div class="service-card__actions">
+            <a class="btn btn--whatsapp btn--sm" data-whatsapp-message="Hello Castro, I need help with an e-Citizen / online application." href="#">Book via WhatsApp</a>
+            <button class="btn btn--ghost btn--sm" data-modal-target="#serviceModal" data-service-name="Online Application &amp; e-Citizen Cyber Services">Ask a question</button>
+          </div>
+        </article>
+
+        <article class="card service-card reveal" data-category="design">
+          <div class="card__icon" aria-hidden="true">🎨</div>
+          <h3>Poster &amp; Graphic Design Services</h3>
+          <p>Event posters, business flyers, and school function graphics — clean layouts, ready for print or social media.</p>
+          <div class="service-card__tags">
+            <span class="service-card__tag">Posters</span>
+            <span class="service-card__tag">Digital Graphics</span>
+          </div>
+          <div class="service-card__actions">
+            <a class="btn btn--whatsapp btn--sm" data-whatsapp-message="Hello Castro, I'd like to book a poster / graphic design job." href="#">Book via WhatsApp</a>
+            <button class="btn btn--ghost btn--sm" data-modal-target="#serviceModal" data-service-name="Poster &amp; Graphic Design Services">Ask a question</button>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Service inquiry modal -->
+<div class="modal-overlay" id="serviceModal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="serviceModalTitle">
+    <div class="modal__head">
+      <div>
+        <span class="eyebrow" style="margin-bottom:6px;">Service inquiry</span>
+        <h3 id="serviceModalTitle" style="font-size:1.15rem;">Ask about a service</h3>
+      </div>
+      <button class="modal__close" data-modal-close aria-label="Close dialog">✕</button>
+    </div>
+    <form data-contact-form>
+      <input type="hidden" name="service_type" value="General Inquiry">
+      <div class="form-row">
+        <div class="field">
+          <label for="svc-name">Full name</label>
+          <input id="svc-name" name="name" type="text" required autocomplete="name">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label for="svc-contact">Email or phone</label>
+          <input id="svc-contact" name="email_or_phone" type="text" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label for="svc-message">Your question</label>
+          <textarea id="svc-message" name="message" required placeholder="What would you like to know?"></textarea>
+        </div>
+      </div>
+      <button type="submit" class="btn btn--primary btn--block">Send question</button>
+      <div class="form-status" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand"><span class="brand__mark">CO</span> Castro Odhiambo</div>
+        <p style="color:#94A3B8; font-size:0.9rem; max-width:32ch;">Mathematics &amp; Computer Studies educator and digital government services specialist.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Explore</h4>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="resources.html">Resources</a>
+        <a href="blog.html">Blog</a>
+      </div>
+      <div class="footer__col">
+        <h4>Services</h4>
+        <a href="services.html">Tutoring</a>
+        <a href="services.html">KUCCPS &amp; HELB</a>
+        <a href="services.html">KRA &amp; e-Citizen</a>
+        <a href="services.html">Graphic Design</a>
+      </div>
+      <div class="footer__col">
+        <h4>Contact</h4>
+        <a href="tel:0792272024">0792 272 024</a>
+        <a href="mailto:castrodhiambo3@gmail.com">castrodhiambo3@gmail.com</a>
+        <a data-whatsapp-message="Hello Castro, I found your website." href="#">WhatsApp</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span data-current-year>2026</span> Castro Odhiambo. All rights reserved.</span>
+      <span>Built with care in Kenya.</span>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="main.js"></script>
+</body>
+</html>
