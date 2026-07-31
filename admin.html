@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard — Castro.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-no-wa-float="1">
+
+<div id="authGate" class="admin-login-wrap" style="min-height:100vh; display:flex; align-items:center; justify-content:center;">
+  <p class="mono muted">Checking admin credentials…</p>
+</div>
+
+<div class="admin-shell hidden" id="adminShell">
+  <aside class="admin-sidebar">
+    <div class="admin-brand"><span class="brand-mark"></span>Castro Admin</div>
+    <ul class="admin-tabs">
+      <li><button data-panel="overview" class="active">📊 Overview</button></li>
+      <li><button data-panel="leads">✉️ Leads &amp; Inquiries</button></li>
+      <li><button data-panel="resources">🗂️ Resource &amp; Exam Bank</button></li>
+      <li><button data-panel="blog">📝 Blog &amp; Publishing</button></li>
+    </ul>
+    <div style="margin-top:34px; padding-top:18px; border-top:1px solid var(--slate-800);">
+      <a href="index.html" style="color:var(--slate-300); display:block; padding:10px 14px; font-size:.88rem;">← View live site</a>
+      <button id="logoutBtn" style="width:100%; text-align:left; background:none; border:none; color:#FCA5A5; font-size:.88rem; padding:10px 14px; cursor:pointer;">⎋ Sign out</button>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+    <!-- OVERVIEW -->
+    <section class="admin-panel active" id="panel-overview">
+      <div class="admin-topbar">
+        <div><h2 style="margin-bottom:2px;">Overview</h2><p class="muted" style="margin:0;">Live snapshot of the platform.</p></div>
+        <span class="tag green" id="liveIndicator">● Live</span>
+      </div>
+      <div class="grid grid-4" style="margin-bottom:32px;">
+        <div class="card"><span class="tag">Leads</span><h2 class="mono" id="countLeads" style="margin-top:10px;">–</h2><p class="muted">Total inquiries</p></div>
+        <div class="card"><span class="tag green">Members</span><h2 class="mono" id="countMembers" style="margin-top:10px;">–</h2><p class="muted">Registered users</p></div>
+        <div class="card"><span class="tag amber">Resources</span><h2 class="mono" id="countResources" style="margin-top:10px;">–</h2><p class="muted">Published resources</p></div>
+        <div class="card"><span class="tag slate">Articles</span><h2 class="mono" id="countPosts" style="margin-top:10px;">–</h2><p class="muted">Active blog articles</p></div>
+      </div>
+      <h3>Real-time inquiry feed</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Name</th><th>Contact</th><th>Service</th><th>Message</th><th>Received</th></tr></thead>
+          <tbody id="liveFeedBody"><tr><td colspan="5" class="center muted">Waiting for activity…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- LEADS -->
+    <section class="admin-panel" id="panel-leads">
+      <div class="admin-topbar">
+        <div><h2 style="margin-bottom:2px;">Leads &amp; Inquiries</h2><p class="muted" style="margin:0;">All submissions from the contact form.</p></div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Name</th><th>Contact</th><th>Service</th><th>Message</th><th>Status</th><th>Received</th><th>Actions</th></tr></thead>
+          <tbody id="leadsBody"><tr><td colspan="7" class="center muted">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- RESOURCES -->
+    <section class="admin-panel" id="panel-resources">
+      <div class="admin-topbar">
+        <div><h2 style="margin-bottom:2px;">Resource &amp; Exam Bank Manager</h2><p class="muted" style="margin:0;">Upload and manage the notes bank.</p></div>
+      </div>
+      <div class="grid grid-2" style="align-items:start; gap:28px;">
+        <div class="form-card">
+          <h3>Upload new resource</h3>
+          <div class="form-error" id="resourceFormError"></div>
+          <form id="resourceForm">
+            <div class="field"><label>Title</label><input type="text" id="resTitle" required></div>
+            <div class="field"><label>Category</label>
+              <select id="resCategory" required>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Computer Studies">Computer Studies</option>
+                <option value="KCSE Past Papers">KCSE Past Papers</option>
+                <option value="Practical Manuals">Practical Manuals</option>
+              </select>
+            </div>
+            <div class="field"><label>Subject</label><input type="text" id="resSubject" required placeholder="e.g. Form 3 Mathematics"></div>
+            <div class="field"><label>Description</label><textarea id="resDescription" placeholder="Short description of this resource"></textarea></div>
+            <div class="field"><label>File</label><input type="file" id="resFile" required></div>
+            <button type="submit" class="btn btn-primary btn-block" id="resSubmitBtn">Upload resource</button>
+          </form>
+        </div>
+        <div>
+          <h3>Published resources</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Title</th><th>Category</th><th>Subject</th><th>Uploaded</th><th></th></tr></thead>
+              <tbody id="resourcesBody"><tr><td colspan="5" class="center muted">Loading…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOG -->
+    <section class="admin-panel" id="panel-blog">
+      <div class="admin-topbar">
+        <div><h2 style="margin-bottom:2px;">Blog &amp; Publishing Studio</h2><p class="muted" style="margin:0;">Write, edit and publish articles.</p></div>
+        <button class="btn btn-primary btn-sm" id="newPostBtn">+ New article</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Title</th><th>Category</th><th>Read time</th><th>Published</th><th>Created</th><th>Actions</th></tr></thead>
+          <tbody id="blogBody"><tr><td colspan="6" class="center muted">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- Blog editor modal -->
+<div class="modal-backdrop" id="postEditorModal">
+  <div class="modal" style="max-width:560px; text-align:left;">
+    <h3 id="editorTitle">New article</h3>
+    <div class="form-error" id="postFormError"></div>
+    <form id="postForm">
+      <input type="hidden" id="postId">
+      <div class="field"><label>Title</label><input type="text" id="postTitle" required></div>
+      <div class="field"><label>Slug</label><input type="text" id="postSlug" required></div>
+      <div class="field"><label>Category</label><input type="text" id="postCategoryInput" placeholder="e.g. Mathematics"></div>
+      <div class="field"><label>Read time</label><input type="text" id="postReadTime" placeholder="e.g. 4 min read"></div>
+      <div class="field"><label>Excerpt</label><textarea id="postExcerpt" placeholder="One or two sentence summary"></textarea></div>
+      <div class="field"><label>Content (Markdown supported)</label><textarea id="postContent" style="min-height:180px;" required></textarea></div>
+      <div class="field flex items-center gap-8">
+        <label class="switch"><input type="checkbox" id="postPublished"><span class="slider"></span></label>
+        <label for="postPublished" style="margin:0;">Publish immediately</label>
+      </div>
+      <div class="modal-actions" style="justify-content:flex-end;">
+        <button type="button" class="btn btn-ghost" id="postCancelBtn">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="postSaveBtn">Save article</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script type="module">
+  import { toast, slugify, formatDate, escapeHTML, waLink, handleLogout } from "./main.js";
+  import {
+    getSession, getMyProfile, subscribeToTable, uploadResourceFile,
+    fetchContactMessages, updateMessageStatus, deleteMessage,
+    fetchResources, createResource, deleteResource,
+    fetchAllPosts, createPost, updatePost, deletePost,
+    fetchOverviewCounts
+  } from "./supabase-client.js";
+
+  /* ---------------- ADMIN GATE ---------------- */
+  const session = await getSession();
+  const profile = session ? await getMyProfile() : null;
+  if (!profile || profile.role !== "admin") {
+    window.location.href = "admin-login.html";
+  } else {
+    document.getElementById("authGate").classList.add("hidden");
+    document.getElementById("adminShell").classList.remove("hidden");
+  }
+
+  document.getElementById("logoutBtn").addEventListener("click", () => handleLogout("admin-login.html"));
+
+  /* ---------------- TAB NAVIGATION ---------------- */
+  document.querySelectorAll(".admin-tabs button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".admin-tabs button").forEach(b => b.classList.remove("active"));
+      document.querySelectorAll(".admin-panel").forEach(p => p.classList.remove("active"));
+      btn.classList.add("active");
+      document.getElementById(`panel-${btn.dataset.panel}`).classList.add("active");
+    });
+  });
+
+  /* ---------------- OVERVIEW ---------------- */
+  async function loadOverview() {
+    try {
+      const counts = await fetchOverviewCounts();
+      document.getElementById("countLeads").textContent = counts.leads;
+      document.getElementById("countMembers").textContent = counts.members;
+      document.getElementById("countResources").textContent = counts.resources;
+      document.getElementById("countPosts").textContent = counts.posts;
+    } catch (err) { console.error(err); }
+  }
+
+  function prependLiveFeed(row) {
+    const tbody = document.getElementById("liveFeedBody");
+    if (tbody.children[0]?.children.length === 1) tbody.innerHTML = "";
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${escapeHTML(row.name)}</td><td>${escapeHTML(row.email_or_phone)}</td><td>${escapeHTML(row.service_type || "-")}</td><td>${escapeHTML((row.message || "").slice(0, 60))}${(row.message||"").length > 60 ? "…" : ""}</td><td class="mono">${formatDate(row.created_at)}</td>`;
+    tbody.prepend(tr);
+    while (tbody.children.length > 8) tbody.removeChild(tbody.lastChild);
+  }
+
+  /* ---------------- LEADS ---------------- */
+  async function loadLeads() {
+    const tbody = document.getElementById("leadsBody");
+    try {
+      const rows = await fetchContactMessages();
+      renderLeads(rows);
+    } catch (err) {
+      tbody.innerHTML = `<tr><td colspan="7" class="center muted">Could not load leads.</td></tr>`;
+    }
+  }
+
+  function renderLeads(rows) {
+    const tbody = document.getElementById("leadsBody");
+    if (!rows.length) { tbody.innerHTML = `<tr><td colspan="7" class="center muted">No inquiries yet.</td></tr>`; return; }
+    tbody.innerHTML = rows.map(r => `
+      <tr data-id="${r.id}">
+        <td>${escapeHTML(r.name)}</td>
+        <td>${escapeHTML(r.email_or_phone)}</td>
+        <td>${escapeHTML(r.service_type || "-")}</td>
+        <td style="max-width:220px;">${escapeHTML(r.message)}</td>
+        <td><span class="status-pill ${r.status}">${r.status}</span></td>
+        <td class="mono">${formatDate(r.created_at)}</td>
+        <td>
+          <div class="flex gap-8">
+            <button class="icon-btn toggle-status" title="Advance status">↻</button>
+            <a class="icon-btn" title="WhatsApp" href="${waLink('Hello ' + r.name + ', following up on your message: "' + r.message + '"')}" target="_blank" rel="noopener">💬</a>
+            <button class="icon-btn danger delete-lead" title="Delete">✕</button>
+          </div>
+        </td>
+      </tr>
+    `).join("");
+
+    const nextStatus = { unread: "in-progress", "in-progress": "completed", completed: "unread" };
+    tbody.querySelectorAll(".toggle-status").forEach(btn => {
+      btn.addEventListener("click", async (e) => {
+        const tr = e.target.closest("tr");
+        const id = tr.dataset.id;
+        const pill = tr.querySelector(".status-pill");
+        const current = pill.classList[1];
+        const next = nextStatus[current];
+        try { await updateMessageStatus(id, next); toast(`Marked as ${next}`, "success"); }
+        catch (err) { toast("Could not update status.", "error"); }
+      });
+    });
+    tbody.querySelectorAll(".delete-lead").forEach(btn => {
+      btn.addEventListener("click", async (e) => {
+        const tr = e.target.closest("tr");
+        if (!confirm("Delete this inquiry permanently?")) return;
+        try { await deleteMessage(tr.dataset.id); toast("Inquiry deleted", "success"); }
+        catch (err) { toast("Could not delete inquiry.", "error"); }
+      });
+    });
+  }
+
+  /* ---------------- RESOURCES ---------------- */
+  async function loadResources() {
+    const tbody = document.getElementById("resourcesBody");
+    try {
+      const rows = await fetchResources();
+      renderResources(rows);
+    } catch (err) {
+      tbody.innerHTML = `<tr><td colspan="5" class="center muted">Could not load resources.</td></tr>`;
+    }
+  }
+
+  function renderResources(rows) {
+    const tbody = document.getElementById("resourcesBody");
+    if (!rows.length) { tbody.innerHTML = `<tr><td colspan="5" class="center muted">No resources uploaded yet.</td></tr>`; return; }
+    tbody.innerHTML = rows.map(r => `
+      <tr data-id="${r.id}">
+        <td>${escapeHTML(r.title)}</td>
+        <td><span class="tag">${escapeHTML(r.category)}</span></td>
+        <td>${escapeHTML(r.subject)}</td>
+        <td class="mono">${formatDate(r.created_at)}</td>
+        <td><button class="icon-btn danger delete-resource" title="Delete">✕</button></td>
+      </tr>
+    `).join("");
+    tbody.querySelectorAll(".delete-resource").forEach(btn => {
+      btn.addEventListener("click", async (e) => {
+        const tr = e.target.closest("tr");
+        if (!confirm("Delete this resource?")) return;
+        try { await deleteResource(tr.dataset.id); toast("Resource deleted", "success"); }
+        catch (err) { toast("Could not delete resource.", "error"); }
+      });
+    });
+  }
+
+  document.getElementById("resourceForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const errBox = document.getElementById("resourceFormError");
+    errBox.classList.remove("show");
+    const btn = document.getElementById("resSubmitBtn");
+    const fileInput = document.getElementById("resFile");
+    const file = fileInput.files[0];
+    if (!file) { errBox.textContent = "Please choose a file to upload."; errBox.classList.add("show"); return; }
+    btn.disabled = true; btn.textContent = "Uploading…";
+    try {
+      const fileUrl = await uploadResourceFile(file);
+      await createResource({
+        title: document.getElementById("resTitle").value.trim(),
+        category: document.getElementById("resCategory").value,
+        subject: document.getElementById("resSubject").value.trim(),
+        description: document.getElementById("resDescription").value.trim(),
+        file_url: fileUrl,
+        uploaded_by: profile.id
+      });
+      toast("Resource uploaded successfully", "success");
+      e.target.reset();
+    } catch (err) {
+      errBox.textContent = err.message || "Upload failed. Please try again.";
+      errBox.classList.add("show");
+    } finally {
+      btn.disabled = false; btn.textContent = "Upload resource";
+    }
+  });
+
+  /* ---------------- BLOG ---------------- */
+  async function loadBlog() {
+    const tbody = document.getElementById("blogBody");
+    try {
+      const rows = await fetchAllPosts();
+      renderBlog(rows);
+    } catch (err) {
+      tbody.innerHTML = `<tr><td colspan="6" class="center muted">Could not load articles.</td></tr>`;
+    }
+  }
+
+  function renderBlog(rows) {
+    const tbody = document.getElementById("blogBody");
+    if (!rows.length) { tbody.innerHTML = `<tr><td colspan="6" class="center muted">No articles yet. Click "New article" to write one.</td></tr>`; return; }
+    tbody.innerHTML = rows.map(p => `
+      <tr data-id="${p.id}">
+        <td>${escapeHTML(p.title)}</td>
+        <td>${escapeHTML(p.category || "-")}</td>
+        <td>${escapeHTML(p.read_time || "-")}</td>
+        <td>
+          <label class="switch"><input type="checkbox" class="publish-toggle" ${p.published ? "checked" : ""}><span class="slider"></span></label>
+        </td>
+        <td class="mono">${formatDate(p.created_at)}</td>
+        <td>
+          <div class="flex gap-8">
+            <button class="icon-btn edit-post" title="Edit">✎</button>
+            <button class="icon-btn danger delete-post" title="Delete">✕</button>
+          </div>
+        </td>
+      </tr>
+    `).join("");
+
+    tbody.querySelectorAll(".publish-toggle").forEach(sw => {
+      sw.addEventListener("change", async (e) => {
+        const id = e.target.closest("tr").dataset.id;
+        try { await updatePost(id, { published: e.target.checked }); toast(e.target.checked ? "Article published" : "Article unpublished", "success"); }
+        catch (err) { toast("Could not update publish status.", "error"); e.target.checked = !e.target.checked; }
+      });
+    });
+    tbody.querySelectorAll(".delete-post").forEach(btn => {
+      btn.addEventListener("click", async (e) => {
+        const id = e.target.closest("tr").dataset.id;
+        if (!confirm("Delete this article?")) return;
+        try { await deletePost(id); toast("Article deleted", "success"); }
+        catch (err) { toast("Could not delete article.", "error"); }
+      });
+    });
+    tbody.querySelectorAll(".edit-post").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const id = e.target.closest("tr").dataset.id;
+        const post = allPostsCache.find(p => p.id === id);
+        if (post) openPostEditor(post);
+      });
+    });
+  }
+
+  let allPostsCache = [];
+  const origFetchAllPosts = fetchAllPosts;
+
+  /* Post editor modal */
+  const postModal = document.getElementById("postEditorModal");
+  const postForm = document.getElementById("postForm");
+  document.getElementById("newPostBtn").addEventListener("click", () => openPostEditor(null));
+  document.getElementById("postCancelBtn").addEventListener("click", () => postModal.classList.remove("open"));
+
+  document.getElementById("postTitle").addEventListener("input", (e) => {
+    if (!document.getElementById("postId").value) {
+      document.getElementById("postSlug").value = slugify(e.target.value);
+    }
+  });
+
+  function openPostEditor(post) {
+    document.getElementById("editorTitle").textContent = post ? "Edit article" : "New article";
+    document.getElementById("postId").value = post ? post.id : "";
+    document.getElementById("postTitle").value = post ? post.title : "";
+    document.getElementById("postSlug").value = post ? post.slug : "";
+    document.getElementById("postCategoryInput").value = post ? (post.category || "") : "";
+    document.getElementById("postReadTime").value = post ? (post.read_time || "") : "";
+    document.getElementById("postExcerpt").value = post ? (post.excerpt || "") : "";
+    document.getElementById("postContent").value = post ? post.content : "";
+    document.getElementById("postPublished").checked = post ? post.published : false;
+    document.getElementById("postFormError").classList.remove("show");
+    postModal.classList.add("open");
+  }
+
+  postForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const errBox = document.getElementById("postFormError");
+    errBox.classList.remove("show");
+    const btn = document.getElementById("postSaveBtn");
+    btn.disabled = true; btn.textContent = "Saving…";
+    const id = document.getElementById("postId").value;
+    const payload = {
+      title: document.getElementById("postTitle").value.trim(),
+      slug: document.getElementById("postSlug").value.trim(),
+      category: document.getElementById("postCategoryInput").value.trim(),
+      read_time: document.getElementById("postReadTime").value.trim(),
+      excerpt: document.getElementById("postExcerpt").value.trim(),
+      content: document.getElementById("postContent").value.trim(),
+      published: document.getElementById("postPublished").checked
+    };
+    try {
+      if (id) await updatePost(id, payload);
+      else await createPost({ ...payload, author: "Castro Odhiambo Otieno" });
+      toast(id ? "Article updated" : "Article created", "success");
+      postModal.classList.remove("open");
+    } catch (err) {
+      errBox.textContent = err.message || "Could not save article.";
+      errBox.classList.add("show");
+    } finally {
+      btn.disabled = false; btn.textContent = "Save article";
+    }
+  });
+
+  /* ---------------- INITIAL LOAD + REALTIME ---------------- */
+  if (profile && profile.role === "admin") {
+    await Promise.all([loadOverview(), loadLeads(), loadResources(), loadBlog()]);
+    allPostsCache = await fetchAllPosts();
+
+    subscribeToTable("contact_messages", async (payload) => {
+      if (payload.eventType === "INSERT") { prependLiveFeed(payload.new); toast(`New inquiry from ${payload.new.name}`, "info"); }
+      loadOverview(); loadLeads();
+    });
+    subscribeToTable("resources", () => { loadOverview(); loadResources(); });
+    subscribeToTable("blog_posts", async () => { loadOverview(); loadBlog(); allPostsCache = await fetchAllPosts(); });
+  }
+</script>
+</body>
+</html>

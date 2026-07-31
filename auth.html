@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login / Register — Castro.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main>
+  <section style="padding:60px 0;">
+    <div class="container" style="max-width:480px;">
+      <div class="form-card">
+        <div class="auth-tabs">
+          <div class="auth-tab active" data-tab="login">Login</div>
+          <div class="auth-tab" data-tab="register">Register</div>
+        </div>
+
+        <div class="form-error" id="formError"></div>
+
+        <!-- LOGIN -->
+        <form id="loginForm">
+          <div class="field">
+            <label for="loginEmail">Email address</label>
+            <input type="email" id="loginEmail" required placeholder="you@example.com">
+          </div>
+          <div class="field">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" required placeholder="••••••••">
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" id="loginBtn">Login</button>
+          <p class="field-hint center" style="margin-top:14px;">Are you the admin? <a href="admin-login.html">Admin login →</a></p>
+        </form>
+
+        <!-- REGISTER -->
+        <form id="registerForm" class="hidden">
+          <div class="field">
+            <label for="regFullName">Full name</label>
+            <input type="text" id="regFullName" required placeholder="e.g. Achieng Otieno">
+          </div>
+          <div class="field">
+            <label for="regUsername">Username</label>
+            <input type="text" id="regUsername" required placeholder="e.g. achieng_o">
+          </div>
+          <div class="field">
+            <label for="regEmail">Email address</label>
+            <input type="email" id="regEmail" required placeholder="you@example.com">
+          </div>
+          <div class="field">
+            <label for="regPhone">Phone number</label>
+            <input type="tel" id="regPhone" required placeholder="+2547XXXXXXXX">
+          </div>
+          <div class="field">
+            <label for="regPassword">Password</label>
+            <input type="password" id="regPassword" required minlength="6" placeholder="At least 6 characters">
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" id="registerBtn">Create free account</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script type="module">
+  import { initSite, toast } from "./main.js";
+  import { signIn, signUpMember, getSession } from "./supabase-client.js";
+
+  await initSite("auth.html");
+
+  // If already logged in, bounce to resources
+  const existingSession = await getSession();
+  if (existingSession) window.location.href = "resources.html";
+
+  const tabs = document.querySelectorAll(".auth-tab");
+  const loginForm = document.getElementById("loginForm");
+  const registerForm = document.getElementById("registerForm");
+  const errorBox = document.getElementById("formError");
+
+  tabs.forEach(tab => tab.addEventListener("click", () => {
+    tabs.forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+    errorBox.classList.remove("show");
+    if (tab.dataset.tab === "login") {
+      loginForm.classList.remove("hidden");
+      registerForm.classList.add("hidden");
+    } else {
+      registerForm.classList.remove("hidden");
+      loginForm.classList.add("hidden");
+    }
+  }));
+
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    errorBox.classList.remove("show");
+    const btn = document.getElementById("loginBtn");
+    btn.disabled = true; btn.textContent = "Logging in…";
+    try {
+      await signIn({
+        email: document.getElementById("loginEmail").value.trim(),
+        password: document.getElementById("loginPassword").value
+      });
+      toast("Welcome back!", "success");
+      setTimeout(() => (window.location.href = "resources.html"), 500);
+    } catch (err) {
+      errorBox.textContent = err.message || "Login failed. Check your credentials and try again.";
+      errorBox.classList.add("show");
+      btn.disabled = false; btn.textContent = "Login";
+    }
+  });
+
+  registerForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    errorBox.classList.remove("show");
+    const btn = document.getElementById("registerBtn");
+    btn.disabled = true; btn.textContent = "Creating account…";
+    try {
+      await signUpMember({
+        fullName: document.getElementById("regFullName").value.trim(),
+        username: document.getElementById("regUsername").value.trim(),
+        phone: document.getElementById("regPhone").value.trim(),
+        email: document.getElementById("regEmail").value.trim(),
+        password: document.getElementById("regPassword").value
+      });
+      toast("Account created! Redirecting…", "success");
+      setTimeout(() => (window.location.href = "resources.html"), 800);
+    } catch (err) {
+      errorBox.textContent = err.message || "Registration failed. Please try again.";
+      errorBox.classList.add("show");
+      btn.disabled = false; btn.textContent = "Create free account";
+    }
+  });
+</script>
+</body>
+</html>

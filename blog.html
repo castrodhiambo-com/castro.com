@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Castro Odhiambo Otieno</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main>
+  <section class="hero" style="padding-bottom:20px;">
+    <div class="container">
+      <span class="eyebrow">Blog</span>
+      <h1 style="max-width:20ch;">Notes on teaching Mathematics, Computer Studies &amp; digital skills.</h1>
+      <p class="hero-lead">Field notes from the classroom and the command line — published straight from Castro's admin dashboard.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:0;">
+    <div class="container">
+      <div class="search-bar">
+        <input type="text" id="blogSearch" placeholder="Search articles…">
+      </div>
+      <div id="blogGrid" class="grid grid-3">
+        <div class="card skeleton skeleton-card"></div>
+        <div class="card skeleton skeleton-card"></div>
+        <div class="card skeleton skeleton-card"></div>
+      </div>
+      <div id="emptyState" class="empty-state hidden">
+        <div class="glyph">[ ]</div>
+        <h3>No articles published yet</h3>
+        <p>Check back soon — Castro publishes new posts from the admin dashboard.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Article reader modal -->
+<div class="modal-backdrop" id="postModal">
+  <div class="modal" style="max-width:640px; text-align:left; max-height:80vh; overflow-y:auto;">
+    <span class="tag" id="postCategory"></span>
+    <h2 id="postTitle" style="margin-top:12px;"></h2>
+    <div class="blog-meta" id="postMeta" style="margin-bottom:18px;"></div>
+    <div id="postContent" style="color:var(--ink-soft); line-height:1.8;"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="postClose">Close</button>
+    </div>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script type="module">
+  import { initSite, toast, filterItems, formatDate, escapeHTML } from "./main.js";
+  import { fetchPublishedPosts } from "./supabase-client.js";
+
+  await initSite("blog.html");
+
+  let allPosts = [];
+  const grid = document.getElementById("blogGrid");
+  const emptyState = document.getElementById("emptyState");
+  const search = document.getElementById("blogSearch");
+  const modal = document.getElementById("postModal");
+  document.getElementById("postClose").addEventListener("click", () => modal.classList.remove("open"));
+
+  function render(list) {
+    if (!list.length) { grid.innerHTML = ""; emptyState.classList.remove("hidden"); return; }
+    emptyState.classList.add("hidden");
+    grid.innerHTML = list.map(p => `
+      <a href="#" class="card blog-card" data-id="${p.id}">
+        <span class="tag">${escapeHTML(p.category || "General")}</span>
+        <h3>${escapeHTML(p.title)}</h3>
+        <p>${escapeHTML(p.excerpt || "")}</p>
+        <div class="blog-meta"><span>${formatDate(p.created_at)}</span><span>·</span><span>${escapeHTML(p.read_time || "5 min read")}</span></div>
+      </a>
+    `).join("");
+
+    grid.querySelectorAll(".blog-card").forEach(card => {
+      card.addEventListener("click", (e) => {
+        e.preventDefault();
+        const post = allPosts.find(p => p.id === card.dataset.id);
+        if (!post) return;
+        document.getElementById("postCategory").textContent = post.category || "General";
+        document.getElementById("postTitle").textContent = post.title;
+        document.getElementById("postMeta").innerHTML = `<span>${formatDate(post.created_at)}</span><span>·</span><span>${escapeHTML(post.read_time || "5 min read")}</span><span>·</span><span>${escapeHTML(post.author)}</span>`;
+        document.getElementById("postContent").innerHTML = escapeHTML(post.content).replace(/\n/g, "<br>");
+        modal.classList.add("open");
+      });
+    });
+  }
+
+  search.addEventListener("input", () => render(filterItems(allPosts, search.value, ["title", "excerpt", "content", "category"])));
+
+  try {
+    allPosts = await fetchPublishedPosts();
+    render(allPosts);
+  } catch (err) {
+    grid.innerHTML = "";
+    emptyState.classList.remove("hidden");
+    toast("Could not load blog posts.", "error");
+    console.error(err);
+  }
+</script>
+</body>
+</html>
