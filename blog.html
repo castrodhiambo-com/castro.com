@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog &amp; Insights — Castro Odhiambo</title>
+<meta name="description" content="Articles on pedagogy, mathematics, computer science, and career &amp; tech from Castro Odhiambo.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%230F172A%22/><text x=%2250%22 y=%2266%22 font-size=%2250%22 font-family=%22Arial%22 font-weight=%22800%22 fill=%22white%22 text-anchor=%22middle%22>C</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand"><span class="brand__mark">CO</span> Castro Odhiambo</a>
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <a href="index.html" data-page="index.html">Home</a>
+      <a href="about.html" data-page="about.html">About</a>
+      <a href="services.html" data-page="services.html">Services</a>
+      <a href="resources.html" data-page="resources.html">Resources</a>
+      <a href="blog.html" data-page="blog.html">Blog</a>
+      <a href="contact.html" data-page="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn--whatsapp btn--sm" data-whatsapp-message="Hello Castro, I found your website and would like to talk." href="#"><span class="btn-label-full">WhatsApp</span></a>
+      <a href="auth.html" class="btn btn--ghost btn--sm" data-auth-guest><span class="btn-label-full">Login</span></a>
+      <div class="nav-account hidden" data-auth-member>
+        <a href="resources.html" class="btn btn--ghost btn--sm"><span class="btn-label-full">My Account</span></a>
+        <a href="admin.html" class="btn btn--dark btn--sm hidden" data-admin-link><span class="btn-label-full">Admin</span></a>
+        <button type="button" class="btn btn--primary btn--sm" data-logout><span class="btn-label-full">Logout</span></button>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Blog &amp; Insights</span>
+      <h1>Notes on teaching, technology, and getting things done in Kenya</h1>
+      <p>Short, practical articles drawn from real classrooms and real government-office queues.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="filter-tabs" data-blog-filters>
+        <button class="filter-tab is-active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="Pedagogy">Pedagogy</button>
+        <button class="filter-tab" data-filter="Mathematics">Mathematics</button>
+        <button class="filter-tab" data-filter="Computer Science">Computer Science</button>
+        <button class="filter-tab" data-filter="Career &amp; Tech">Career &amp; Tech</button>
+      </div>
+
+      <div class="grid grid-3" data-blog-grid>
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight text-center">
+    <div class="container reveal">
+      <h2 style="font-size:1.5rem; margin-bottom:14px;">Have a topic you'd like covered?</h2>
+      <p style="max-width:480px; margin:0 auto 22px;">Send a suggestion and it might become the next article.</p>
+      <a class="btn btn--whatsapp" data-whatsapp-message="Hello Castro, I have a blog topic suggestion." href="#">Suggest a topic</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- Article reader modal -->
+<div class="modal-overlay" id="blogPostModal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="blogModalTitle" style="max-width:640px; text-align:left; max-height:85vh; overflow-y:auto;">
+    <div class="modal__head">
+      <div>
+        <span class="blog-card__cat" id="blogModalCategory">Category</span>
+        <h3 id="blogModalTitle" style="margin-top:10px; font-size:1.3rem;">Title</h3>
+        <div class="blog-card__meta" id="blogModalMeta" style="margin-top:8px; margin-bottom:0;"></div>
+      </div>
+      <button class="modal__close" data-modal-close aria-label="Close dialog">✕</button>
+    </div>
+    <div id="blogModalContent" style="color:var(--c-text-soft); line-height:1.85; white-space:pre-line;"></div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand"><span class="brand__mark">CO</span> Castro Odhiambo</div>
+        <p style="color:#94A3B8; font-size:0.9rem; max-width:32ch;">Mathematics &amp; Computer Studies educator and digital government services specialist.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Explore</h4>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="resources.html">Resources</a>
+        <a href="blog.html">Blog</a>
+      </div>
+      <div class="footer__col">
+        <h4>Services</h4>
+        <a href="services.html">Tutoring</a>
+        <a href="services.html">KUCCPS &amp; HELB</a>
+        <a href="services.html">KRA &amp; e-Citizen</a>
+        <a href="services.html">Graphic Design</a>
+      </div>
+      <div class="footer__col">
+        <h4>Contact</h4>
+        <a href="tel:0792272024">0792 272 024</a>
+        <a href="mailto:castrodhiambo3@gmail.com">castrodhiambo3@gmail.com</a>
+        <a data-whatsapp-message="Hello Castro, I found your website." href="#">WhatsApp</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span data-current-year>2026</span> Castro Odhiambo. All rights reserved.</span>
+      <span>Built with care in Kenya.</span>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="main.js"></script>
+</body>
+</html>
