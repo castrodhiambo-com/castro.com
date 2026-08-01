@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin.html
 Disallow: /admin-login.html
 
-Sitemap: https://www.castroodhiambo.co.ke/sitemap.xml
+Sitemap: https://castrodhiambo-com.github.io/castro.com
