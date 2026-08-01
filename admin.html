@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard — Castro Odhiambo</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%230F172A%22/><text x=%2250%22 y=%2266%22 font-size=%2250%22 font-family=%22Arial%22 font-weight=%22800%22 fill=%22white%22 text-anchor=%22middle%22>C</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="authGate" class="admin-login-wrap">
+  <p style="color:#94A3B8;">Checking admin credentials…</p>
+</div>
+
+<div class="admin-shell hidden" id="adminShell">
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar__brand"><span class="brand__mark">CO</span> Castro Admin</div>
+    <ul class="admin-nav">
+      <li><button type="button" data-panel="overview" class="is-active">📊 Overview</button></li>
+      <li><button type="button" data-panel="leads">✉️ Leads &amp; Inquiries</button></li>
+      <li><button type="button" data-panel="resources">🗂️ Resource &amp; Exam Bank</button></li>
+      <li><button type="button" data-panel="blog">📝 Blog &amp; Publishing</button></li>
+    </ul>
+    <div class="admin-sidebar__foot">
+      <a href="index.html">← View live site</a>
+      <button type="button" class="admin-logout-btn" data-logout data-logout-redirect="admin-login.html">⎋ Sign out</button>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+    <!-- OVERVIEW -->
+    <section class="admin-panel is-active" id="panel-overview">
+      <div class="admin-topbar">
+        <div><h2>Overview</h2><p style="margin:0;">Live snapshot of the platform.</p></div>
+        <span class="service-card__tag" style="background:#DCFCE7; color:#15803D;">● Live</span>
+      </div>
+      <div class="grid grid-4" style="margin-bottom:36px;">
+        <div class="card stat-card"><span class="service-card__tag">Leads</span><h3 id="countLeads">–</h3><span class="stat-label">Total inquiries</span></div>
+        <div class="card stat-card"><span class="service-card__tag" style="background:#DCFCE7; color:#15803D;">Members</span><h3 id="countMembers">–</h3><span class="stat-label">Registered users</span></div>
+        <div class="card stat-card"><span class="service-card__tag" style="background:#FEF3C7; color:#92400E;">Resources</span><h3 id="countResources">–</h3><span class="stat-label">Published resources</span></div>
+        <div class="card stat-card"><span class="service-card__tag" style="background:#E2E8F0; color:#334155;">Articles</span><h3 id="countPosts">–</h3><span class="stat-label">Active blog articles</span></div>
+      </div>
+      <h3 style="margin-bottom:16px;">Real-time inquiry feed</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Name</th><th>Contact</th><th>Service</th><th>Message</th><th>Received</th></tr></thead>
+          <tbody id="liveFeedBody"><tr><td colspan="5" class="text-center" style="color:var(--c-text-faint);">Waiting for activity…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- LEADS -->
+    <section class="admin-panel" id="panel-leads">
+      <div class="admin-topbar">
+        <div><h2>Leads &amp; Inquiries</h2><p style="margin:0;">Every submission from the contact form, updated live.</p></div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Name</th><th>Contact</th><th>Service</th><th>Message</th><th>Status</th><th>Received</th><th>Actions</th></tr></thead>
+          <tbody id="leadsBody"><tr><td colspan="7" class="text-center" style="color:var(--c-text-faint);">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- RESOURCES -->
+    <section class="admin-panel" id="panel-resources">
+      <div class="admin-topbar">
+        <div><h2>Resource &amp; Exam Bank Manager</h2><p style="margin:0;">Upload and manage the notes bank.</p></div>
+      </div>
+      <div class="grid grid-2" style="align-items:start; gap:28px;">
+        <div class="form-panel">
+          <h3 style="margin-bottom:18px;">Upload new resource</h3>
+          <div class="form-error-banner" id="resourceFormError"></div>
+          <form id="resourceForm">
+            <div class="form-row"><div class="field"><label for="resTitle">Title</label><input type="text" id="resTitle" required></div></div>
+            <div class="form-row"><div class="field"><label for="resCategory">Category</label>
+              <select id="resCategory" required>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Computer Studies">Computer Studies</option>
+                <option value="KCSE Past Papers">KCSE Past Papers</option>
+                <option value="Practical Manuals">Practical Manuals</option>
+              </select>
+            </div></div>
+            <div class="form-row"><div class="field"><label for="resSubject">Subject</label><input type="text" id="resSubject" placeholder="e.g. Form 3 Mathematics"></div></div>
+            <div class="form-row"><div class="field"><label for="resDescription">Description</label><textarea id="resDescription" placeholder="Short description of this resource"></textarea></div></div>
+            <div class="form-row"><div class="field"><label for="resFile">File</label><input type="file" id="resFile" required></div></div>
+            <button type="submit" class="btn btn--primary btn--block" id="resSubmitBtn">Upload resource</button>
+          </form>
+        </div>
+        <div>
+          <h3 style="margin-bottom:18px;">Published resources</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Title</th><th>Category</th><th>Subject</th><th>Uploaded</th><th></th></tr></thead>
+              <tbody id="resourcesBody"><tr><td colspan="5" class="text-center" style="color:var(--c-text-faint);">Loading…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOG -->
+    <section class="admin-panel" id="panel-blog">
+      <div class="admin-topbar">
+        <div><h2>Blog &amp; Publishing Studio</h2><p style="margin:0;">Write, edit and publish articles.</p></div>
+        <button type="button" class="btn btn--primary btn--sm" id="newPostBtn">+ New article</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Title</th><th>Category</th><th>Read time</th><th>Published</th><th>Created</th><th>Actions</th></tr></thead>
+          <tbody id="blogBody"><tr><td colspan="6" class="text-center" style="color:var(--c-text-faint);">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- Blog editor modal -->
+<div class="modal-overlay" id="postEditorModal">
+  <div class="modal" style="max-width:560px; text-align:left;">
+    <div class="modal__head">
+      <h3 id="postEditorTitle">New article</h3>
+      <button class="modal__close" data-modal-close aria-label="Close dialog">✕</button>
+    </div>
+    <div class="form-error-banner" id="postFormError"></div>
+    <form id="postForm">
+      <input type="hidden" id="postId">
+      <div class="form-row"><div class="field"><label for="postTitle">Title</label><input type="text" id="postTitle" required></div></div>
+      <div class="form-row"><div class="field"><label for="postSlug">Slug</label><input type="text" id="postSlug" required></div></div>
+      <div class="form-row form-row--2">
+        <div class="field"><label for="postCategoryInput">Category</label><input type="text" id="postCategoryInput" placeholder="e.g. Mathematics"></div>
+        <div class="field"><label for="postReadTime">Read time (min)</label><input type="number" id="postReadTime" min="1" value="4"></div>
+      </div>
+      <div class="form-row"><div class="field"><label for="postExcerpt">Excerpt</label><textarea id="postExcerpt" placeholder="One or two sentence summary"></textarea></div></div>
+      <div class="form-row"><div class="field"><label for="postContent">Content (Markdown supported)</label><textarea id="postContent" style="min-height:180px;" required></textarea></div></div>
+      <div class="form-row" style="display:flex; align-items:center; gap:10px;">
+        <label class="toggle-switch"><input type="checkbox" id="postPublished"><span class="toggle-slider"></span></label>
+        <label for="postPublished" style="margin:0; font-weight:600; font-size:0.9rem;">Publish immediately</label>
+      </div>
+      <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:10px;">
+        <button type="button" class="btn btn--ghost" data-modal-close>Cancel</button>
+        <button type="submit" class="btn btn--primary" id="postSaveBtn">Save article</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script type="module" src="main.js"></script>
+</body>
+</html>

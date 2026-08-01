@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Castro Odhiambo</title>
+<meta name="description" content="Get in touch with Castro Odhiambo via WhatsApp, phone, email, or the contact form.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%230F172A%22/><text x=%2250%22 y=%2266%22 font-size=%2250%22 font-family=%22Arial%22 font-weight=%22800%22 fill=%22white%22 text-anchor=%22middle%22>C</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand"><span class="brand__mark">CO</span> Castro Odhiambo</a>
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <a href="index.html" data-page="index.html">Home</a>
+      <a href="about.html" data-page="about.html">About</a>
+      <a href="services.html" data-page="services.html">Services</a>
+      <a href="resources.html" data-page="resources.html">Resources</a>
+      <a href="blog.html" data-page="blog.html">Blog</a>
+      <a href="contact.html" data-page="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn--whatsapp btn--sm" data-whatsapp-message="Hello Castro, I found your website and would like to talk." href="#"><span class="btn-label-full">WhatsApp</span></a>
+      <a href="auth.html" class="btn btn--ghost btn--sm" data-auth-guest><span class="btn-label-full">Login</span></a>
+      <div class="nav-account hidden" data-auth-member>
+        <a href="resources.html" class="btn btn--ghost btn--sm"><span class="btn-label-full">My Account</span></a>
+        <a href="admin.html" class="btn btn--dark btn--sm hidden" data-admin-link><span class="btn-label-full">Admin</span></a>
+        <button type="button" class="btn btn--primary btn--sm" data-logout><span class="btn-label-full">Logout</span></button>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Contact</span>
+      <h1>Reach me directly — I respond personally to every message</h1>
+      <p>Use whichever channel is fastest for you. For urgent requests, WhatsApp is checked most often.</p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="contact-methods reveal">
+        <a class="contact-method" data-whatsapp-message="Hello Castro, I'd like to get in touch." href="#">
+          <div class="contact-method__icon contact-method__icon--whatsapp" aria-hidden="true">💬</div>
+          <div>
+            <strong>WhatsApp</strong>
+            <span>+254 759 130 506</span>
+          </div>
+        </a>
+        <a class="contact-method" href="tel:0792272024">
+          <div class="contact-method__icon contact-method__icon--phone" aria-hidden="true">📞</div>
+          <div>
+            <strong>Phone</strong>
+            <span>0792 272 024</span>
+          </div>
+        </a>
+        <a class="contact-method" href="mailto:castrodhiambo3@gmail.com">
+          <div class="contact-method__icon contact-method__icon--email" aria-hidden="true">✉️</div>
+          <div>
+            <strong>Email</strong>
+            <span>castrodhiambo3@gmail.com</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid grid-2" style="gap:56px; align-items:flex-start;">
+        <div class="reveal">
+          <span class="eyebrow">Send a message</span>
+          <h2 style="font-size:1.7rem; margin-bottom:14px;">Tell me what you need</h2>
+          <p>Fill in the form with a few details — your name, how to reach you, the service you're interested in, and your message. I'll follow up as soon as I see it.</p>
+          <div style="margin-top:30px; padding:22px; border-radius:var(--radius-md); background:var(--c-blue-tint); border:1px solid #BFDBFE;">
+            <strong style="display:block; color:var(--c-navy); margin-bottom:6px;">Prefer to talk it through?</strong>
+            <span style="font-size:0.92rem; color:var(--c-text-soft);">WhatsApp is the fastest way to reach me for time-sensitive requests like KUCCPS revision deadlines or urgent tutoring bookings.</span>
+          </div>
+        </div>
+
+        <div class="form-panel reveal">
+          <form data-contact-form aria-label="Contact form">
+            <div class="form-row form-row--2">
+              <div class="field">
+                <label for="contact-name">Full name</label>
+                <input id="contact-name" name="name" type="text" required autocomplete="name" placeholder="e.g. Brian Otieno">
+              </div>
+              <div class="field">
+                <label for="contact-info">Email or phone</label>
+                <input id="contact-info" name="email_or_phone" type="text" required placeholder="e.g. brian@email.com">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="contact-service">Service</label>
+                <select id="contact-service" name="service_type">
+                  <option>Mathematics &amp; Computer Studies Tutoring</option>
+                  <option>KRA PIN Registration &amp; Tax Services</option>
+                  <option>KUCCPS Placement Applications</option>
+                  <option>HELB Loan Applications</option>
+                  <option>Online Application &amp; e-Citizen Services</option>
+                  <option>Poster &amp; Graphic Design</option>
+                  <option>General Inquiry</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="contact-message">Message</label>
+                <textarea id="contact-message" name="message" required placeholder="What can I help you with?"></textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn btn--primary btn--block">Send message</button>
+            <div class="form-status" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand"><span class="brand__mark">CO</span> Castro Odhiambo</div>
+        <p style="color:#94A3B8; font-size:0.9rem; max-width:32ch;">Mathematics &amp; Computer Studies educator and digital government services specialist.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Explore</h4>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="resources.html">Resources</a>
+        <a href="blog.html">Blog</a>
+      </div>
+      <div class="footer__col">
+        <h4>Services</h4>
+        <a href="services.html">Tutoring</a>
+        <a href="services.html">KUCCPS &amp; HELB</a>
+        <a href="services.html">KRA &amp; e-Citizen</a>
+        <a href="services.html">Graphic Design</a>
+      </div>
+      <div class="footer__col">
+        <h4>Contact</h4>
+        <a href="tel:0792272024">0792 272 024</a>
+        <a href="mailto:castrodhiambo3@gmail.com">castrodhiambo3@gmail.com</a>
+        <a data-whatsapp-message="Hello Castro, I found your website." href="#">WhatsApp</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span data-current-year>2026</span> Castro Odhiambo. All rights reserved.</span>
+      <span>Built with care in Kenya.</span>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="main.js"></script>
+</body>
+</html>
